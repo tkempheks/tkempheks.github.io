@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>[t]kemp[heks]</title>
-    <link>https://tkempheks.github.io/</link>
-    <description>Recent content on [t]kemp[heks]</description>
+    <title>Posts on [t]kemp[heks]</title>
+    <link>https://tkempheks.github.io/posts/</link>
+    <description>Recent content in Posts on [t]kemp[heks]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 May 2021 21:03:54 +0200</lastBuildDate><atom:link href="https://tkempheks.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 May 2021 21:03:54 +0200</lastBuildDate><atom:link href="https://tkempheks.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>fp!</title>
       <link>https://tkempheks.github.io/posts/fp/</link>
