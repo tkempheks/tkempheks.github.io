@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Tinkering with a Huawei HG532s router // [t]kemp[heks]</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.121.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Tyron Kemp" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Tinkering with a Huawei HG532s router"/>
+<meta name="twitter:description" content="I had some soho routers lying around, and thought it be a good opportunity to have a go at some hardware hackzoring.
+I&rsquo;ve written up the steps below which i took during my exploration:
+Step 1 - Find the UART pins Open up the router.. find the UART pins and connect your USB to UART serial converter.. Something like this should work.
+Step 2 - Bootloader and Memory Dump Interupt the boot process / gain access to the bootloader by pressing whichever key you need to."/>
+
+    <meta property="og:title" content="Tinkering with a Huawei HG532s router" />
+<meta property="og:description" content="I had some soho routers lying around, and thought it be a good opportunity to have a go at some hardware hackzoring.
+I&rsquo;ve written up the steps below which i took during my exploration:
+Step 1 - Find the UART pins Open up the router.. find the UART pins and connect your USB to UART serial converter.. Something like this should work.
+Step 2 - Bootloader and Memory Dump Interupt the boot process / gain access to the bootloader by pressing whichever key you need to." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tkempheks.github.io/posts/hardware-hacking/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-02-04T00:00:00+00:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://tkempheks.github.io"><img class="app-header-avatar" src="/images/ty.jpg" alt="Tyron Kemp" /></a>
+      <span class="app-header-title">[t]kemp[heks]</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/about/">MTMzNw==</a>
+      </nav>
+      <p>0xSecN00b</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/tkempheks" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>My Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/tkempheks" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>My X</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Tinkering with a Huawei HG532s router</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 4, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>I had some soho routers lying around, and thought it be a good opportunity to have a go at some hardware hackzoring.<br>
+I&rsquo;ve written up the steps below which i took during my exploration:</p>
+<h3 id="step-1---find-the-uart-pins">Step 1 - Find the UART pins</h3>
+<p>Open up the router.. find the UART pins and connect your USB to UART serial converter..
+Something like <a href="https://www.amazon.com/usb-uart/s?k=usb+to+uart">this</a> should work.</p>
+<figure><img src="/images/3.png" width="400"/>
+</figure>
+
+<h3 id="step-2---bootloader-and-memory-dump">Step 2 - Bootloader and Memory Dump</h3>
+<p>Interupt the boot process / gain access to the bootloader by pressing whichever key you need to. Conveniently this has a memory dump feature :D</p>
+<figure><img src="/images/4.png" width="1000"/>
+</figure>
+
+<p>Dumping the memory over serial takes a bit of time (zzz). We can use this <a href="https://github.com/danitool/bootloader-dump-tools/blob/master/rt63365tool.py">python script</a> automate the process.</p>
+<figure><img src="/images/mem-dump-2.png" width="1000"/>
+</figure>
+
+<h3 id="step-3---static-analyis-aka-strings-xd">Step 3 - Static Analyis AKA strings xD</h3>
+<p>Running strings on the <code>test.bin</code> file obtained from the bootloader/memory dump we find 3 users:</p>
+<ul>
+<li>Admin</li>
+<li>user</li>
+<li>!!Huawei</li>
+</ul>
+<figure><img src="/images/strings.png" width="1000"/>
+</figure>
+
+<p>The interesting bit here is not the 1337 haxor static anylysis skills, but rather the fact that the &ldquo;!!Huawei&rdquo; account was not visible from the router&rsquo;s management/web interface. Sneaky sneaky huawei&hellip;.</p>
+<p>Ok, we have a username and password hash from the image above. So we can crack with something like hashcat, or google for the password (<code>@HuaweiHgw</code>) :p</p>
+<ul>
+<li><a href="https://forum.archive.openwrt.org/viewtopic.php?id=49676&amp;p=2">https://forum.archive.openwrt.org/viewtopic.php?id=49676&amp;p=2</a></li>
+<li><a href="https://forum.antichat.club/threads/472262/">https://forum.antichat.club/threads/472262/</a></li>
+</ul>
+<h3 id="step-4---authentication">Step 4 - Authentication</h3>
+<p>So we&rsquo;ll try the creds from above (!!Huawei / @HuaweiHgw) using Telnet. I run into a little problem and it appears that the telnet service needs to be enabled.</p>
+<p>Using the known username/passwords (admin/admin or user/user) we can download the routers configuration file. The configuration file is encrypted but this is again well known and <a href="https://yaleman.org/post/2018/2018-10-01-huawei-config-files/">documented online</a>. The TLDR of the config file is that its encrypted using AES-CBC and the KEY and IV is known. This means we can:</p>
+<ul>
+<li>Decrypt the config file</li>
+<li>Modify the config to enable telnet</li>
+<li>Reupload the modified config file</li>
+</ul>
+<figure><img src="/images/cyber-chef.png" width="2000"/>
+</figure>
+
+<p>Ok&hellip; so now we&rsquo;re thinking will have some sort of shell acess&hellip; However nope!!!!
+The telnet management interface is firewalled off. The workaround for this is to configure a DNAT rule granting access from the WAN (DSL) interface, towards the LAN interface. Guess what? Ain&rsquo;t got no DSL&hellip;.</p>
+<h3 id="step-5---vulns-yay-more-vulns-please-d">Step 5 - Vulns? Yay, more vulns please :D</h3>
+<p>So at this point i&rsquo;m a little stuck with using the credentials, but luckily the version of firmware has a command injection vulnerability&hellip;.</p>
+<figure><img src="/images/rce.png" width="2000"/>
+</figure>
+
+<p>So using the vuln.. I allow myself access via telnet using iptables, and while we&rsquo;re at it.. lets get a reverse shell.</p>
+<p>Upload a busybox version of netcat and bobs your uncle&hellip;
+Using telnet its possible to gain access to the &ldquo;ATP CLi&rdquo;, which in some cases provides a &ldquo;shell&rdquo; command. Which is where we want to get&hellip;
+However in this case, there&rsquo;s no shell command, but we can give ourselves acccess to busybox/the shell using our uploaded netcat binary.</p>
+<figure><img src="/images/shell.png" width="2000"/>
+</figure>
+
+<h3 id="step-6---wrap-up">Step 6 - Wrap up</h3>
+<p>There&rsquo;s still more to tinker with here, and different paths that could have lead to the same results.
+This was just a little bit of playing around to see where I could get, dont hate :p</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

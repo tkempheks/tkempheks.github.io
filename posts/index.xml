@@ -6,15 +6,35 @@
     <description>Recent content in Posts on [t]kemp[heks]</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 May 2021 21:03:54 +0200</lastBuildDate><atom:link href="https://tkempheks.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tkempheks.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Canarytokens for home networks (routers again, sorry!) - Part 1</title>
+      <link>https://tkempheks.github.io/posts/canarytokens-for-home-networks/</link>
+      <pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>https://tkempheks.github.io/posts/canarytokens-for-home-networks/</guid>
+      <description>Denver, Dev and I did a spoke about Canarytokens at BSIDES Cape Town 2022. A portion of the talk covers how you could use Canarytokens to protect your SOHO networking equipment. This is what you&amp;rsquo;ll find written up below.&#xA;Detecting failed authentication attempts against a Mikrotik Canarytokens are mostly built on top of two primitive alerting channels. HTTP and/or DNS requests. We can easily deploy various pre-built tokens (MS-Word, AWS, etc&amp;hellip;), build our own detection and use either the Web Bug or DNS Canarytoken as a triggering mechanism.</description>
+    </item>
+    <item>
+      <title>Routopsy</title>
+      <link>https://tkempheks.github.io/posts/routopsy/</link>
+      <pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>https://tkempheks.github.io/posts/routopsy/</guid>
+      <description>Dynamic routing protocol exploitation Before getting into this infosec thing, I built networks&amp;hellip;&#xA;Fast forward a little bit and the TH3_GOAT_FARM3R and I built a tool. We wrote up a blog post and talked about Routopsy at BHUSA2020.&#xA;The talk is available on youtube.</description>
+    </item>
+    <item>
+      <title>Tinkering with a Huawei HG532s router</title>
+      <link>https://tkempheks.github.io/posts/hardware-hacking/</link>
+      <pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>https://tkempheks.github.io/posts/hardware-hacking/</guid>
+      <description>I had some soho routers lying around, and thought it be a good opportunity to have a go at some hardware hackzoring.&#xA;I&amp;rsquo;ve written up the steps below which i took during my exploration:&#xA;Step 1 - Find the UART pins Open up the router.. find the UART pins and connect your USB to UART serial converter.. Something like this should work.&#xA;Step 2 - Bootloader and Memory Dump Interupt the boot process / gain access to the bootloader by pressing whichever key you need to.</description>
+    </item>
     <item>
       <title>fp!</title>
       <link>https://tkempheks.github.io/posts/fp/</link>
       <pubDate>Tue, 11 May 2021 21:03:54 +0200</pubDate>
-      
       <guid>https://tkempheks.github.io/posts/fp/</guid>
       <description>Cows go moo when they poo!</description>
     </item>
-    
   </channel>
 </rss>
